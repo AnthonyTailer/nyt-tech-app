@@ -8,9 +8,8 @@ const useApiRequest = (url, { verb = 'GET', params = {} } = {}) => {
   const apiKey = 'udyw9zudgaK5k1fcEv4DCxAAGNLapAEG'
 
   const makeRequest = useCallback(async () => {
-    dispatch(fetching)
+    dispatch(fetching())
     try {
-
       const response = await fetch(`${url}?api-key=${apiKey}`, {
         method: verb,
         headers: {
@@ -19,10 +18,10 @@ const useApiRequest = (url, { verb = 'GET', params = {} } = {}) => {
         body: !isEmpty(params) ? params : null
       })
       const data = await response.json()
-      console.warn('FETCHED.... =-> ', data)
+      console.log('FETCHED.... =-> ', data)
       dispatch(success(data))
     } catch (e) {
-      console.warn('ERROR.... =-> ', e)
+      console.log('ERROR.... =-> ', e)
       dispatch(error(e))
     }
   }, [url, verb, params])
