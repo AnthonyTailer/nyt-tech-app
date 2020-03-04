@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { FlatList, RefreshControl, View } from 'react-native'
 import { Header, Image, Text } from 'react-native-elements'
 import { useTheme } from '@react-navigation/native'
@@ -72,7 +73,14 @@ const NewsList = ({ route }) => {
       </SafeAreaView>
     </View>
   )
+}
 
+NewsList.propTypes = {
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      section: PropTypes.string
+    })
+  }).isRequired,
 }
 
 export  default NewsList

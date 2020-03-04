@@ -1,7 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Button, Divider, ListItem, Overlay, Text } from 'react-native-elements'
 import { View, Linking, Alert } from 'react-native'
 import { listStyles } from '../NewsList/styles'
+import { dateTimeFmt } from '../../utils'
 
 const getFirstPostImage = (images) => {
   const defaultImg = 'https://eumeps-powerparts.eu/assets/generated/images/news-placeholder.png'
@@ -11,30 +13,41 @@ const getFirstPostImage = (images) => {
   return defaultImg
 }
 
-
 const NewsListItem = ({ item, onPress }) => {
+  const { title, abstract, published_date, multimedia } = item
   return (
     <ListItem
-      title={item.title}
+      title={title}
       onPress={onPress}
       subtitle={
         <View style={listStyles.subtitleView}>
-          <Text style={listStyles.subtitleText}>{item.abstract}</Text>
-          {item.published_date && (
+          <Text style={listStyles.subtitleText}>{abstract}</Text>
+          {published_date && (
             <Text style={listStyles.pubDate}>
-              {new Intl.DateTimeFormat('en-US').format(new Date(item.published_date))}
+              {dateTimeFmt(new Date(published_date))}
             </Text>
           )}
         </View>
       }
-      leftAvatar={{rounded: false, size: 'xlarge', source: {uri: getFirstPostImage(item.multimedia)}}}
+      leftAvatar={{rounded: false, size: 'xlarge', source: {uri: getFirstPostImage(multimedia)}}}
       bottomDivider
       chevron
     />
   )
 }
 
+NewsListItem.propTypes = {
+  item: PropTypes.shape({
+    title: PropTypes.string,
+    abstract: PropTypes.string,
+    published_date: PropTypes.string,
+    multimedia: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  onPress: PropTypes.func.isRequired,
+}
+
 export const ArticleModal = ({ open, onClose, item }) => {
+  const { title, abstract, byline, published_date, updated_date, short_url, section } = item
 
   const handleReadArticle = (url) => {
     Linking.canOpenURL(url).then(supported => {
@@ -60,22 +73,22 @@ export const ArticleModal = ({ open, onClose, item }) => {
       animationType="slide"
     >
       <>
-        <Text h4 h4Style={{ marginBottom: 5 }}>{item?.title}</Text>
-        <Text style={listStyles.subtitleText}>{item?.byline}</Text>
-        <Text style={listStyles.subtitleText}>Section: {item?.section}</Text>
-        { item.published_date && (
+        <Text h4 h4Style={{ marginBottom: 5 }}>{title}</Text>
+        <Text style={listStyles.subtitleText}>{byline}</Text>
+        <Text style={listStyles.subtitleText}>Section: {section}</Text>
+        { published_date && (
           <Text style={listStyles.subtitleText}>
             Published at:&nbsp;
-            {new Intl.DateTimeFormat('en-US').format(new Date(item.published_date))}
+            {dateTimeFmt(new Date(published_date))}
           </Text>
         )}
-        { item.updated_date && (
+        { updated_date && (
           <Text style={listStyles.subtitleText}>
             Last update:&nbsp;
-            {new Intl.DateTimeFormat('en-US').format(new Date(item.updated_date))}
+            {dateTimeFmt(new Date(updated_date))}
           </Text>
         )}
-        <Text style={listStyles.modalMainText}>{item?.abstract}</Text>
+        <Text style={listStyles.modalMainText}>{abstract}</Text>
         <Divider style={{ marginVertical: 10 }} />
         <View style={listStyles.modalButtons}>
           <Button
@@ -86,13 +99,31 @@ export const ArticleModal = ({ open, onClose, item }) => {
           <Button
             title="Read the full article"
             type="clear"
-            onPress={() => handleReadArticle(item?.short_url)}
+            onPress={() => handleReadArticle(short_url)}
           />
         </View>
 
       </>
     </Overlay>
   )
+}
+
+ArticleModal.propTypes = {
+  item: PropTypes.shape({
+    title: PropTypes.string,
+    byline: PropTypes.string,
+    abstract: PropTypes.string,
+    published_date: PropTypes.string,
+    updated_date: PropTypes.string,
+    short_url: PropTypes.string,
+    section: PropTypes.string,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool,
+}
+
+ArticleModal.defaultProps = {
+  open: false,
 }
 
 export default NewsListItem
