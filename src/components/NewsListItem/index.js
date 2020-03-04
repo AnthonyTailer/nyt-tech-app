@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Divider, ListItem, Overlay, Text } from 'react-native-elements'
 import { View, Linking, Alert } from 'react-native'
-import { listStyles } from '../NewsList/styles'
+import { listStyles } from './styles'
 import { dateTimeFmt } from '../../utils'
 
 const getFirstPostImage = (images) => {
