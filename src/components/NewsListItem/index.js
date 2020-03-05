@@ -18,15 +18,15 @@ const NewsListItem = ({ item, onPress }) => {
   return (
     <ListItem
       title={
-        <Text h4 h4Style={{ fontSize: 16 }} data-testid="title">
+        <Text h4 h4Style={{ fontSize: 16 }} >
           {title}
         </Text>
       }
       subtitle={
         <View style={listStyles.subtitleView}>
-          <Text data-testid="subtitle" style={listStyles.subtitleText}>{abstract}</Text>
+          <Text  style={listStyles.subtitleText}>{abstract}</Text>
           {published_date && (
-            <Text data-testid="published-date" style={listStyles.pubDate}>
+            <Text style={listStyles.pubDate}>
               {dateTimeFmt(new Date(published_date))}
             </Text>
           )}

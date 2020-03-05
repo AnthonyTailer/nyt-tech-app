@@ -1,4 +1,5 @@
 import React from 'react'
+import 'intl'
 import { ThemeProvider } from 'react-native-elements'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -15,6 +16,7 @@ export default function App() {
         <NavigationContainer>
           <Tab.Navigator
             initialRouteName="Technology"
+            lazy
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                   let iconName

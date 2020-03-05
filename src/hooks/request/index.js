@@ -18,10 +18,8 @@ const useApiRequest = (url, { verb = 'GET', params = {} } = {}) => {
         body: !isEmpty(params) ? params : null
       })
       const data = await response.json()
-      console.log('FETCHED.... =-> ', data)
       dispatch(success(data))
     } catch (e) {
-      console.log('ERROR.... =-> ', e)
       dispatch(error(e))
     }
   }, [url, verb, params])
