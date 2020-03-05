@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handles ERROR action 1`] = `
+Object {
+  "response": [Error: Look ma! I am an error],
+  "status": "error",
+}
+`;
+
+exports[`handles FETCHING action 1`] = `
+Object {
+  "response": null,
+  "status": "fetching",
+}
+`;
+
+exports[`handles SUCCESS action 1`] = `
+Object {
+  "response": undefined,
+  "status": "success",
+}
+`;
+
+exports[`returns the same state on an unhandled action 1`] = `
+Object {
+  "response": null,
+  "status": null,
+}
+`;
