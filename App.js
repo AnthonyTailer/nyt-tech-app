@@ -1,5 +1,8 @@
 import React from 'react'
 import 'intl'
+import 'intl/locale-data/jsonp/en'
+import 'intl/locale-data/jsonp/en-US'
+
 import { ThemeProvider } from 'react-native-elements'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
