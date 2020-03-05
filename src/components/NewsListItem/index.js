@@ -17,18 +17,22 @@ const NewsListItem = ({ item, onPress }) => {
   const { title, abstract, published_date, multimedia } = item
   return (
     <ListItem
-      title={title}
-      onPress={onPress}
+      title={
+        <Text h4 h4Style={{ fontSize: 16 }} data-testid="title">
+          {title}
+        </Text>
+      }
       subtitle={
         <View style={listStyles.subtitleView}>
-          <Text style={listStyles.subtitleText}>{abstract}</Text>
+          <Text data-testid="subtitle" style={listStyles.subtitleText}>{abstract}</Text>
           {published_date && (
-            <Text style={listStyles.pubDate}>
+            <Text data-testid="published-date" style={listStyles.pubDate}>
               {dateTimeFmt(new Date(published_date))}
             </Text>
           )}
         </View>
       }
+      onPress={onPress}
       leftAvatar={{rounded: false, size: 'xlarge', source: {uri: getFirstPostImage(multimedia)}}}
       bottomDivider
       chevron

@@ -18,14 +18,11 @@ export default function App() {
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                   let iconName
-
                   if (route.name === 'Technology') {
                     iconName = 'globe'
                   } else if (route.name === 'Science') {
                     iconName = 'chemistry'
                   }
-
-                  // You can return any component that you like here!
                   return <IconWithBadge name={iconName} size={size} color={color} />;
                 },
             })}
@@ -36,5 +33,5 @@ export default function App() {
         </NavigationContainer>
       </ThemeProvider>
     </SafeAreaProvider>
-  );
+  )
 }
